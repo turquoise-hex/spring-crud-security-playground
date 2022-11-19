@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/review.css">
+    <meta charset="UTF-8">
+    <title>All Reviews</title>
+</head>
+<body>
+<div class="bg">
+    <table>
+        <thead>
+        <tr>
+            <th>Artist</th>
+            <th>Album</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Date posted</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="review : ${reviews}">
+            <td><span th:text="${review.getAlbum().getArtist()}"> Album name </span></td>
+            <td><a th:href="@{~/review/album/{id}(id=${review.getAlbum().id})}" th:text="${review.getAlbum().getName()}"> Album name </a></td>
+            <td><a th:href="@{~/review/{id}(id=${review.id})}" th:text="${review.title}"> Title </a></td>
+            <td><span th:text="${review.author.getName()}"> Author </span></td>
+            <td><span th:text="${review.datePosted}"> Date Posted </span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form action="/review/post" method="post">
+        <input type="submit" value="Make a review" />
+    </form>
+</div>
+</body>
+</html>

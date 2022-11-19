@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/review.css">
+    <meta charset="UTF-8">
+    <title>My Reviews</title>
+</head>
+<body>
+<div class="bg">
+    <table>
+        <thead>
+        <tr>
+            <th>Artist</th>
+            <th>Album name</th>
+            <th>Text</th>
+            <th>Date posted</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="review : ${myReviews}">
+            <td><span th:text="${review.getAlbum().getArtist()}"> Album name </span></td>
+            <td><span th:text="${review.getAlbum().getName()}"> Album name </span></td>
+            <td><span th:text="${review.title}"> Title </span></td>
+            <td><span th:text="${review.datePosted}"> Date Posted </span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
