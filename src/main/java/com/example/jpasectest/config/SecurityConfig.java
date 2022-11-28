@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.POST, "/api/**").hasAuthority(Permission.DEVELOPERS_WRITE.getPermission())
 //                .antMatchers(HttpMethod.DELETE, "/api/**").hasAuthority(Permission.DEVELOPERS_WRITE.getPermission())
                     .antMatchers("/review").hasAuthority("developers:read")
-                    .antMatchers("/", "/**", "/review/all").permitAll()
+                    .antMatchers("/", "/**", "/review/all", "/activate/*").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

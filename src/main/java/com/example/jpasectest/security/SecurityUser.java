@@ -61,7 +61,7 @@ public class SecurityUser implements UserDetails {
     public static UserDetails fromUser(com.example.jpasectest.model.User user){
         return new User(
                 user.getEmail(), user.getPassword(),
-                user.getStatus().equals(Status.ACTIVE),
+                user.isActivated(),
                 user.getStatus().equals(Status.ACTIVE),
                 user.getStatus().equals(Status.ACTIVE),
                 user.getStatus().equals(Status.ACTIVE),

@@ -31,6 +31,11 @@ public class User {
     @Column(name = "status")
     private Status status;
 
+    @Column(name = "activated")
+    private boolean activated;
+
+    private String activationCode;
+
     public User(){
 
     }
@@ -56,12 +61,28 @@ public class User {
         this.userReviews = userReviews;
     }
 
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
     }
 
     public String getEmail() {

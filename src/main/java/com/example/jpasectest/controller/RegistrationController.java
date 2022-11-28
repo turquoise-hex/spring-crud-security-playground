@@ -6,10 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -41,7 +38,23 @@ public class RegistrationController {
         }
 
         System.out.println(user.getName());
-        userService.registerNewUserAccount(user);
+
+        if(userService.registerNewUserAccount(user)){
+            return "redirect:/auth/login";
+        } else {
+            System.out.println("User already exists");
+            return "registration";
+        }
+        }
+
+    @GetMapping("/activate/{code}")
+    public String activate(@PathVariable String code){
+        boolean isActivated = userService.activateUser(code);
+        if(isActivated){
+            System.out.println("User activated successfully");
+        } else {
+            System.out.println("User not found by activation code");
+        }
         return "redirect:/auth/login";
     }
 
