@@ -39,11 +39,8 @@ public class ReviewController {
 
     @PostMapping("/post")
     public String showForm(Model model){
-
-
         model.addAttribute("review", new Review());
         model.addAttribute("albums", albumService.findAll());
-
         return "post";
     }
 
@@ -56,8 +53,6 @@ public class ReviewController {
 
         System.out.println(review.getAlbum());
 
-
-
         if(review.getTitle().isEmpty()){
           return "redirect:/review/all";
         }
@@ -69,9 +64,9 @@ public class ReviewController {
     public String showMyReviews(@AuthenticationPrincipal UserDetails userDetails, Model model){
         String authorEmail = userDetails.getUsername();
         User author = userService.findByEmail(authorEmail);
-        //List<Review> myReviews = reviewService.findByAuthor(author);
         List<Review> myReviews = author.getUserReviews();
         model.addAttribute("myReviews", myReviews);
+
         return "myReviews";
 
     }
@@ -97,9 +92,6 @@ public class ReviewController {
 
         Optional<Album> album = albumService.findById(id);
         System.out.println(spotifyAPi.getAlbumUrl(album.get().getArtist(), album.get().getName()));
-        if (album.isEmpty()){
-            return "allReviews";
-        }
         model.addAttribute("album", album);
         return "albumInfo";
     }

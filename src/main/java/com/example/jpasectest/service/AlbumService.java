@@ -17,6 +17,19 @@ public class AlbumService {
         this.albumRepository = albumRepository;
     }
 
+    public boolean addAlbum(Album album){
+        List<Album> addedAlbums = findAll();
+        for(Album addedAlbum : addedAlbums){
+            if(addedAlbum.getName().equals(album.getName()) && addedAlbum.getArtist().equals(album.getArtist())){
+                System.out.println("Album already added");
+                return false;
+            }
+        }
+
+        albumRepository.save(album);
+        return true;
+    }
+
     public List<String> findAllAlbumNames(){
         List<Album> albums = albumRepository.findAll();
         List<String> albumNames = new ArrayList();

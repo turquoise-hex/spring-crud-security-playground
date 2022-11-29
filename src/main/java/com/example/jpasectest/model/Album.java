@@ -1,8 +1,8 @@
 package com.example.jpasectest.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -19,7 +19,7 @@ public class Album {
     @Column(name = "year")
     private int year;
     @Column(name = "release_date")
-    private Date releaseDate;
+    private LocalDate releaseDate;
     @Column(name = "genre")
     private String genre;
     @OneToMany(mappedBy = "album", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
@@ -66,11 +66,11 @@ public class Album {
         this.year = year;
     }
 
-    public Date getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 
