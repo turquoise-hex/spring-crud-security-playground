@@ -77,4 +77,9 @@ public class UserService {
 
         return true;
     }
+
+    public String saveUser(User user){
+        userRepository.save(user);
+        return "User added";
+    }
 }

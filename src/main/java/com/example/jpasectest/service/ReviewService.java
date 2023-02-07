@@ -1,4 +1,5 @@
 package com.example.jpasectest.service;
+import com.example.jpasectest.model.Album;
 import com.example.jpasectest.model.Review;
 import com.example.jpasectest.model.User;
 import com.example.jpasectest.repository.ReviewRepository;
@@ -36,6 +37,8 @@ public class ReviewService {
     public Optional<Review> findById(Long id){
         return reviewRepository.findById(id);
     }
+
+    public List<Review> findByAlbum(Album album){return reviewRepository.findByAlbum(album);}
 
 
 }

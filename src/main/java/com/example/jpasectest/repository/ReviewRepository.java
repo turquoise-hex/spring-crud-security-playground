@@ -1,5 +1,6 @@
 package com.example.jpasectest.repository;
 
+import com.example.jpasectest.model.Album;
 import com.example.jpasectest.model.Review;
 import com.example.jpasectest.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +16,5 @@ public interface ReviewRepository extends CrudRepository<Review, Long> {
 
     List<Review> findAll();
 
+    List<Review> findByAlbum(Album album);
 }
