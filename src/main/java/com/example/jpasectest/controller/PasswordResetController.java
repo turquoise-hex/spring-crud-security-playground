@@ -16,7 +16,7 @@ public class PasswordResetController {
     private PasswordResetService passwordResetService;
 
     @GetMapping("/request")
-    public String showRequestPasswordResetForm(Model model) {
+    public String showRequestPasswordResetForm() {
         // Add any necessary model attributes
         return "requestPasswordReset";
     }

@@ -16,6 +16,7 @@ public class PasswordResetService {
     private PasswordResetTokenRepository passwordResetTokenRepository;
     @Autowired
     private UserService userService;
+    @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     private MailSenderService mailSenderService;
@@ -33,15 +34,18 @@ public class PasswordResetService {
             passwordResetTokenRepository.save(passwordResetToken);
             // Send password reset email
 
-            mailSenderService.send(email, "password reset", passwordResetToken.getToken());
+            mailSenderService.send(email, "password reset", "localhost:8080/reset-password/change?token=" + passwordResetToken.getToken());
         }
     }
 
     public void resetPassword(String token, String password) {
         PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(token);
         if (passwordResetToken != null && passwordResetToken.getExpiryDate().isAfter(LocalDateTime.now())) {
+            System.out.println(token);
+            System.out.println(password);
             String email = passwordResetToken.getEmail();
             User user = userService.findByEmail(email);
+            System.out.println(user.toString());
             user.setPassword(passwordEncoder.encode(password));
             userService.saveUser(user);
             passwordResetTokenRepository.delete(passwordResetToken);

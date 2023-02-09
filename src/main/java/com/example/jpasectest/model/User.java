@@ -133,5 +133,19 @@ public class User {
         this.status = status;
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", age=" + age +
+                ", role=" + role +
+                ", status=" + status +
+                ", activated=" + activated +
+                ", activationCode='" + activationCode + '\'' +
+                ", userReviews=" + userReviews +
+                '}';
+    }
 }
