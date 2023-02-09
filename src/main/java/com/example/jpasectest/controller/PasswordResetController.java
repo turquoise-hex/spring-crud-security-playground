@@ -39,9 +39,16 @@ public class PasswordResetController {
     @PostMapping("/change")
     public String handlePasswordChange(@RequestParam("token") String token,
                                        @RequestParam("password") String password,
+                                       @RequestParam("confirmPassword") String confirmPassword,
                                        Model model) {
+
+        if (!password.equals(confirmPassword)) {
+            model.addAttribute("error", "Passwords do not match");
+            return "changePassword";
+        }
+
         passwordResetService.resetPassword(token, password);
-        // Add any necessary model attributes
+         //Add any necessary model attributes
         return "passwordResetSuccessful";
     }
 }
