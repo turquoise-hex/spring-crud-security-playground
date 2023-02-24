@@ -9,11 +9,16 @@ import com.example.jpasectest.service.ReviewService;
 import com.example.jpasectest.service.UserService;
 import com.example.jpasectest.spotify.SpotifyAPiImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionRegistry;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,6 +32,9 @@ public class ReviewController {
     private final UserService userService;
     private final AlbumService albumService;
     private final SpotifyAPiImpl spotifyAPi;
+
+    @Autowired
+    private SessionRegistry sessionRegistry;
 
     @Autowired
     public ReviewController(ReviewService reviewService, UserService userService, AlbumService albumService, SpotifyAPiImpl spotifyAPi){
@@ -73,6 +81,19 @@ public class ReviewController {
     @GetMapping("/all")
     public String showAllReviews(Model model){
         List<Review> reviews = reviewService.getAllReviews();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        int numberOfUsers = 0;
+        for (Object principal : sessionRegistry.getAllPrincipals()) {
+            if (!(principal instanceof AnonymousAuthenticationToken)) {   //excluding anonymous users
+                numberOfUsers++;
+            }
+        }
+
+        model.addAttribute("numberOfUsers", numberOfUsers);
+
+
         model.addAttribute("reviews", reviews);
         return "allReviews";
     }
